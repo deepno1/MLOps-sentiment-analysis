@@ -6,7 +6,6 @@ matplotlib
 plotly
 seaborn
 scikit-learn
-pymongo
 from_root
 dill
 certifi
@@ -21,4 +20,5 @@ jinja2
 imblearn
 python-dotenv
 dvc
+
 -e .

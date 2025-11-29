@@ -35,7 +35,7 @@ CONFIG = {
 
 def clean_text(text):
 
-    text = BeautifulSoup(text,'html').get_text()
+    text = BeautifulSoup(text,'html.parser').get_text()
     text = re.sub(r'https?://\S+|www\.\S+','',text)
     text = text.lower()
     text = re.sub(r'\d+','',text)
