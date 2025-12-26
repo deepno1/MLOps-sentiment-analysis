@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from src.logger import logging
 from src.connections.s3_connection import s3_operation
 from dotenv import load_dotenv
+import yaml
 
 def load_params(params_path: str) -> dict:
 
@@ -65,9 +66,11 @@ def save_data(train_data: pd.DataFrame, test_data: pd.DataFrame, data_path: str)
 
 def main():
     try:
-        TEST_SIZE = 0.25
-        FILE_NAME = 'IMDB.csv'
-        BUCKET_NAME = ''
+        params = load_params('params.yaml')
+
+        TEST_SIZE = params['data_ingestion']['test_size']
+        FILE_NAME = params['data_ingestion']['file_name']
+        BUCKET_NAME = params['data_ingestion']['bucket_name']
 
         load_dotenv()
         AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')

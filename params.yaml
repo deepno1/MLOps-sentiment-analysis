@@ -1,0 +1,13 @@
+data_ingestion:
+  test_size : 0.25
+  file_name : 'IMDB.csv'
+  bucket_name : 'senti-proj'
+
+feature_engineering:
+  max_features : 5000
+  max_df : 0.75
+  min_df : 5
+  ngram_range : [1,1]
+
+model_building:
+  alpha : 0.5

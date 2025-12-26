@@ -5,6 +5,16 @@ from sklearn.naive_bayes import MultinomialNB
 import sys
 from src.exception import CustomException
 from src.logger import logging
+import yaml
+
+def load_params(params_path : str) -> dict:
+    try:
+        with open(params_path,'r') as file:
+            params = yaml.safe_load(file)
+            logging.debug('Parameters retrieved from %s', params_path)
+            return params
+    except Exception as e:
+        raise CustomException(e,sys)
 
 def load_data(path : str) -> pd.DataFrame:
     try:
@@ -35,8 +45,10 @@ def save_model(obj,file_path : str):
 
 def main():
     try:
+        params = load_params('params.yaml')
+
         model_params = {
-                           'alpha' : 0.5 
+                           'alpha' : params['model_building']['alpha']
                        }
 
         train_data = load_data('./data/processed/train_bow.csv')

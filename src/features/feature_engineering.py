@@ -6,6 +6,16 @@ from src.logger import logging
 import pickle
 from src.exception import CustomException
 import sys
+import yaml
+
+def load_params(params_path : str) -> dict:
+    try:
+        with open(params_path,'r') as file:
+            params = yaml.safe_load(file)
+            logging.debug('Parameters retrieved from %s', params_path)
+            return params
+    except Exception as e:
+        raise CustomException(e,sys)
 
 def load_data(file_path: str) -> pd.DataFrame:
     try:
@@ -56,10 +66,12 @@ def save_data(df: pd.DataFrame, file_path: str) -> None:
 
 def main():
     try:
-        vec_params = {  'max_features' : 5000,
-                        'max_df' : 0.75,
-                        'min_df' : 5,
-                        'ngram_range' : (1, 1)
+        params = load_params('params.yaml')
+
+        vec_params = {  'max_features' : params['feature_engineering']['max_features'],
+                        'max_df' : params['feature_engineering']['max_df'],
+                        'min_df' : params['feature_engineering']['min_df'],
+                        'ngram_range' : tuple(params['feature_engineering']['ngram_range'])
                      }
 
         train_data = load_data('./data/interim/train_processed.csv')
