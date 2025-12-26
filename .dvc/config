@@ -1,4 +1,4 @@
 [core]
-    remote = mylocal
-['remote "mylocal"']
-    url = ../s3_local
+    remote = myremote
+['remote "myremote"']
+    url = s3://senti-proj
